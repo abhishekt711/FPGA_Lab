@@ -169,38 +169,45 @@ https://github.com/abhishekt711/FPGA_Lab/Assignment_1
 \section{Question:6(a)}
 Draw the Logic Circuit of the following Boolean Expression:\\
 \begin{align}
-    A^{'}B^{'}+AC
+    \bar{A}\bar{B}+AC
 \end{align}
 \section{Solution}
 
 
-The logic circuit for the boolean function $A^{'}B^{'}+AC$ can be drawn as:\\
-
-
+The logic circuit for the boolean function $\bar{A}\bar{B}+AC$ can be drawn using only NAND gate as:\\
 
 
 \begin{tikzpicture}
 % Circuit style
 \ctikzset{
-    logic ports=ieee
+    logic ports=ieee,
+logic ports/scale=0.8
 }
 % Logic ports
-\node[nor port] (NORa) at (0,0){};
-\node[or port] (ORa) at (3,-1){};
-\node[and port] (ANDa) at (0,-2){};
 
- \draw (NORa.out) -| (ORa.in 1);
-\draw (ANDa.out) -| (ORa.in 2);
-\draw (NORa.in 2) -- ++(-1.5,0)node[left](B){B};
-\draw (NORa.in 1) -- ++(-1.5,0)node[left](A){A};
-\draw (NORa.in 1) -- (ANDa.in 1);
-%\draw (ANDa.in 1) -- ++(-0.5,0)node[left](A){A};
-\draw (ANDa.in 2) -- ++(-1.5,0)node[left](C){C};
-\draw (ORa.out) -- ++(1,0) node[near end,above]{F};
+\node[nand port] (na) at (0,2){};
+\node[nand port] (nb) at (0,0){};
+\node[nand port] (nc) at (2,1){};
+\node[nand port] (nd) at (1,-2){};
+\node[nand port] (ne) at (4,-1.25){};
+ \draw (na.out) -| (nc.in 1);
+ \draw (nb.out) -| (nc.in 2);
+\draw (nc.out) -| (ne.in 1);
+\draw (nd.out) -| (ne.in 2);
+\draw (nb.in 2) -| ++(-1,0)node[left](A){A};
+\draw (na.in 2) -| ++(-1,0)node[left](B){B};
+\draw (nd.in 2) -- ++(-1.5,0)node[left](C){C};
+\draw (ne.out) -- ++(1,0) node[near end,above]{F};
+\draw (na.in 2) |- (na.in 1);
+\draw (nb.in 2) |- (nb.in 1);
+\draw (nb.in 2) |- (nd.in 1);
 \end{tikzpicture}
+
+
 \begin{align}
- \text{F}&=(A+B)^{'}+AC\\
-&=A^{'}B^{'}+AC
+ \text{F}&=\overline{\overline{\bar{A}\bar{B}}\overline{AC}}\\
+\text{F}&=\overline{\overline{\bar{A}\bar{B}}}+\overline{\overline{AC}}\\
+\text{F}&=\bar{A}\bar{B}+AC
 \end{align}
 
 

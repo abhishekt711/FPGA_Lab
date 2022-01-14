@@ -10,21 +10,16 @@ bool AND(bool A, bool B)
 {
    return A && B;
 }
-
-bool OR(bool A, bool B)
+bool NAND(bool A, bool B)
 {
-   return A || B;
-}
-bool NOR(bool A, bool B)
-{
-   return NOT(OR(A,B));
+   return NOT(AND(A,B));
 }
 
 int main()
 {
-   bool A = true, B = false, C = false;	
+   bool A = true, B = false, C = true;	
    bool result;
-   result = OR(AND(A,C),NOR(A,B));
+   result=NAND(NAND(NAND(A,A),NAND(B,B)),NAND(A,C));
    result ? printf("1\n") : printf("0\n");
    return 0;
 }
